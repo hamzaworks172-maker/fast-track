@@ -1,9 +1,12 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, ChefHat, Store, Truck } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import ProductCard from '@/components/ProductCard'
 import SectionHeading from '@/components/SectionHeading'
 import SegmentCard from '@/components/SegmentCard'
+import HeroCarousel from '@/components/HeroCarousel'
+import StatsBand from '@/components/StatsBand'
 import type { Product } from '@/types'
 
 export const revalidate = 60
@@ -29,59 +32,33 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-green">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-1/4 -right-1/4 w-[60vw] h-[60vw] rounded-full border border-white/5" />
-          <div className="absolute -top-1/4 -right-1/4 w-[50vw] h-[50vw] rounded-full border border-white/5" />
-          <div className="absolute bottom-0 -left-1/4 w-[40vw] h-[40vw] rounded-full bg-brand-green-dark/50" />
-        </div>
+      {/* Hero — rotating image carousel */}
+      <HeroCarousel />
 
-        <div className="section-container relative z-10 pt-24 pb-16">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-gold/40 bg-brand-gold/10 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
-              <span className="text-brand-gold text-sm font-medium">Brazil · Oman · Quality</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-[1.1] mb-6">
-              Premium Frozen Foods
-              <span className="block text-brand-gold mt-1">For Your Business</span>
-            </h1>
-
-            <p className="text-white/70 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
-              Brazilian expertise meets Omani excellence. We supply HORECA, retail, and wholesale customers with consistent, high-quality frozen food products across the Sultanate of Oman.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/frozen-products"
-                className="inline-flex items-center gap-2 px-7 py-4 bg-brand-gold text-brand-green-dark font-bold rounded-xl hover:bg-brand-gold-light transition-colors"
-              >
-                Explore Products
-                <ArrowRight size={18} />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:border-white/60 hover:bg-white/5 transition-colors"
-              >
-                Contact Us
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-0 inset-x-0">
-          <svg viewBox="0 0 1440 80" className="w-full fill-neutral-base" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" />
-          </svg>
-        </div>
-      </section>
-
-      {/* About teaser */}
+      {/* About teaser — two-column with image */}
       <section className="py-20 bg-neutral-base">
         <div className="section-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image side */}
+            <div className="relative">
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/about/warehouse.jpg"
+                  alt="Fast Track cold storage warehouse operations"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-green-dark/30 to-transparent" />
+              </div>
+              {/* Badge overlay */}
+              <div className="absolute -bottom-5 -right-4 w-28 h-28 rounded-full bg-brand-gold flex flex-col items-center justify-center text-brand-green-dark shadow-lg border-4 border-neutral-base">
+                <span className="text-xs font-semibold uppercase tracking-widest leading-tight text-center">Brazilian</span>
+                <span className="text-xs font-bold uppercase tracking-widest leading-tight text-center">Heritage</span>
+              </div>
+            </div>
+
+            {/* Text side */}
             <div>
               <SectionHeading
                 eyebrow="Who We Are"
@@ -97,27 +74,14 @@ export default async function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: '4+', label: 'Product Lines' },
-                { value: '3', label: 'Market Segments' },
-                { value: '100%', label: 'Cold-Chain Handled' },
-                { value: '1', label: 'Official Franchise, Oman' },
-              ].map(({ value, label }) => (
-                <div
-                  key={label}
-                  className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200/60 text-center"
-                >
-                  <p className="text-3xl font-bold text-brand-green">{value}</p>
-                  <p className="text-sm text-charcoal-light mt-1">{label}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* What We Do */}
+      {/* Stats band */}
+      <StatsBand />
+
+      {/* What We Do — image background cards */}
       <section className="py-20 bg-white">
         <div className="section-container">
           <SectionHeading
@@ -132,18 +96,21 @@ export default async function HomePage() {
               title="HORECA"
               description="Supplying hotels, restaurants, and catering businesses with consistent, high-quality frozen products built for professional kitchen demands."
               href="/what-we-do"
+              imageSrc="/images/segments/horeca.jpg"
             />
             <SegmentCard
               icon={Store}
               title="Retail"
               description="Supporting supermarkets and retail outlets with reliable stock and packaging suited for shelf display and consumer appeal."
               href="/what-we-do"
+              imageSrc="/images/segments/retail.jpg"
             />
             <SegmentCard
               icon={Truck}
               title="Wholesale"
               description="Bulk distribution backed by efficient cold-chain logistics and storage — scalable supply for large-volume buyers."
               href="/what-we-do"
+              imageSrc="/images/segments/wholesale.jpg"
             />
           </div>
         </div>
@@ -175,9 +142,20 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Contact CTA */}
-      <section className="py-20 bg-brand-green">
-        <div className="section-container text-center">
+      {/* Contact CTA — with subtle background image */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/about/warehouse.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-brand-green/90" />
+        </div>
+        <div className="relative z-10 section-container text-center">
           <p className="text-brand-gold text-sm font-semibold uppercase tracking-widest mb-4">
             Ready to Order?
           </p>

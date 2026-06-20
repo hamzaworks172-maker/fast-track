@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Globe, Award, Leaf, Users } from 'lucide-react'
 import SectionHeading from '@/components/SectionHeading'
@@ -39,10 +40,18 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      {/* Page header */}
-      <section className="pt-32 pb-16 bg-brand-green relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-1/4 -right-1/4 w-[50vw] h-[50vw] rounded-full border border-white/5" />
+      {/* Page header — with full background image */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-72">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/about/warehouse.jpg"
+            alt="Fast Track warehouse operations"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-brand-green/80" />
         </div>
         <div className="section-container relative z-10">
           <p className="text-brand-gold text-sm font-semibold uppercase tracking-widest mb-3">
@@ -51,7 +60,7 @@ export default function AboutPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Who We Are
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl">
+          <p className="text-white/80 text-lg max-w-2xl">
             A Brazilian-based company with an official franchise presence in the Sultanate of Oman — bridging global food quality with local business needs.
           </p>
         </div>
@@ -65,7 +74,7 @@ export default function AboutPage() {
       {/* Our Story */}
       <section className="py-20 bg-neutral-base">
         <div className="section-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <SectionHeading
                 eyebrow="Our Story"
@@ -93,39 +102,52 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {[
-                {
-                  value: 'Brazilian',
-                  label: 'Origin & Expertise',
-                  detail: 'Rooted in one of the world\'s top frozen food markets.',
-                },
-                {
-                  value: 'Oman',
-                  label: 'Official Franchise',
-                  detail: 'Authorized franchise and distribution operation in the Sultanate.',
-                },
-                {
-                  value: 'HORECA',
-                  label: 'Primary Market',
-                  detail: 'Hotels, restaurants, and catering — our core supply focus.',
-                },
-                {
-                  value: '100%',
-                  label: 'Cold-Chain Handled',
-                  detail: 'End-to-end temperature-controlled delivery on every order.',
-                },
-              ].map(({ value, label, detail }) => (
-                <div
-                  key={label}
-                  className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200/60"
-                >
-                  <p className="text-2xl font-bold text-brand-green">{value}</p>
-                  <p className="font-semibold text-charcoal text-sm mt-1">{label}</p>
-                  <p className="text-charcoal-light text-sm mt-2 leading-relaxed">{detail}</p>
-                </div>
-              ))}
+            {/* Image alongside story */}
+            <div className="relative">
+              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/segments/wholesale.jpg"
+                  alt="Cold storage and logistics operations"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-green-dark/30 to-transparent" />
+              </div>
+              {/* Stats grid overlapping the image */}
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                {[
+                  {
+                    value: 'Brazilian',
+                    label: 'Origin & Expertise',
+                    detail: 'Rooted in one of the world\'s top frozen food markets.',
+                  },
+                  {
+                    value: 'Oman',
+                    label: 'Official Franchise',
+                    detail: 'Authorized franchise and distribution operation in the Sultanate.',
+                  },
+                  {
+                    value: 'HORECA',
+                    label: 'Primary Market',
+                    detail: 'Hotels, restaurants, and catering — our core supply focus.',
+                  },
+                  {
+                    value: '100%',
+                    label: 'Cold-Chain Handled',
+                    detail: 'End-to-end temperature-controlled delivery on every order.',
+                  },
+                ].map(({ value, label, detail }) => (
+                  <div
+                    key={label}
+                    className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-200/60"
+                  >
+                    <p className="text-xl font-bold text-brand-green">{value}</p>
+                    <p className="font-semibold text-charcoal text-sm mt-0.5">{label}</p>
+                    <p className="text-charcoal-light text-xs mt-1.5 leading-relaxed">{detail}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

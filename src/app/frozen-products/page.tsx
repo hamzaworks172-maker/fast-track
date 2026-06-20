@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import ProductCard from '@/components/ProductCard'
 import SectionHeading from '@/components/SectionHeading'
@@ -32,10 +33,18 @@ export default async function FrozenProductsPage() {
 
   return (
     <>
-      {/* Page header */}
-      <section className="pt-32 pb-16 bg-brand-green relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-1/4 -right-1/4 w-[50vw] h-[50vw] rounded-full border border-white/5" />
+      {/* Page header — with background image */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-72">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/slide-3-fries.jpg"
+            alt="Premium frozen food products"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-brand-green/80" />
         </div>
         <div className="section-container relative z-10">
           <p className="text-brand-gold text-sm font-semibold uppercase tracking-widest mb-3">
@@ -44,7 +53,7 @@ export default async function FrozenProductsPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Frozen Products
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl">
+          <p className="text-white/80 text-lg max-w-2xl">
             Flash-frozen at peak freshness to preserve quality, texture, and flavour — ready for your kitchen or shelf.
           </p>
         </div>

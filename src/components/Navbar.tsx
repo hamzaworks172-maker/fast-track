@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
+import Logo from './Logo'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -41,17 +42,8 @@ export default function Navbar() {
     >
       <div className="section-container">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded bg-brand-gold flex items-center justify-center font-bold text-brand-green-dark text-sm flex-shrink-0">
-              FT
-            </div>
-            <span className="text-white font-bold text-lg leading-tight">
-              Fast Track
-              <span className="block text-brand-gold text-xs font-normal tracking-widest uppercase">
-                Food Stuff LLC
-              </span>
-            </span>
+          <Link href="/" aria-label="Fast Track Food Stuff LLC — Home">
+            <Logo variant="light" size="sm" />
           </Link>
 
           {/* Desktop nav */}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
+import Image from 'next/image'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import SectionHeading from '@/components/SectionHeading'
 import ContactFormWrapper from './ContactFormWrapper'
@@ -13,10 +14,18 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* Page header */}
-      <section className="pt-32 pb-16 bg-brand-green relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-1/4 -right-1/4 w-[50vw] h-[50vw] rounded-full border border-white/5" />
+      {/* Page header — with background image */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-72">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/slide-4-kitchen.jpg"
+            alt="Professional kitchen"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-brand-green/80" />
         </div>
         <div className="section-container relative z-10">
           <p className="text-brand-gold text-sm font-semibold uppercase tracking-widest mb-3">
@@ -25,7 +34,7 @@ export default function ContactPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Contact Us
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl">
+          <p className="text-white/80 text-lg max-w-2xl">
             Have a question, or ready to place an order? Reach out — we&apos;ll get back to you promptly.
           </p>
         </div>

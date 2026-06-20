@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ChefHat, Store, Truck, CheckCircle } from 'lucide-react'
 import SectionHeading from '@/components/SectionHeading'
@@ -15,6 +16,7 @@ const segments = [
     id: 'horeca',
     title: 'HORECA',
     subtitle: 'Hotels, Restaurants & Catering',
+    image: '/images/segments/horeca.jpg',
     description:
       'Professional kitchens demand consistency, reliability, and quality that holds up under high-volume cooking. We supply hotels, restaurants, and catering operations across Oman with frozen proteins, fries, and other staple products — ensuring your menu stays consistent regardless of season or market fluctuation.',
     highlights: [
@@ -29,6 +31,7 @@ const segments = [
     id: 'retail',
     title: 'Retail',
     subtitle: 'Supermarkets & Grocery Outlets',
+    image: '/images/segments/retail.jpg',
     description:
       'For retail partners, product appearance, shelf stability, and packaging integrity are everything. Our frozen products are packaged for consumer appeal, clearly labelled, and delivered in shelf-ready condition — making restocking fast and reducing shrinkage from handling.',
     highlights: [
@@ -43,6 +46,7 @@ const segments = [
     id: 'wholesale',
     title: 'Wholesale',
     subtitle: 'Bulk Distribution & Large-Volume Buyers',
+    image: '/images/segments/wholesale.jpg',
     description:
       'For distributors and large-volume buyers, we offer bulk ordering with full cold-chain logistics. Our wholesale operation is built around efficiency — minimising lead times and ensuring stock availability so your supply chain doesn\'t skip a beat.',
     highlights: [
@@ -57,10 +61,18 @@ const segments = [
 export default function WhatWeDoPage() {
   return (
     <>
-      {/* Page header */}
-      <section className="pt-32 pb-16 bg-brand-green relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-1/4 -right-1/4 w-[50vw] h-[50vw] rounded-full border border-white/5" />
+      {/* Page header — with background image */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-72">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/segments/horeca.jpg"
+            alt="Restaurant kitchen"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-brand-green/80" />
         </div>
         <div className="section-container relative z-10">
           <p className="text-brand-gold text-sm font-semibold uppercase tracking-widest mb-3">
@@ -69,7 +81,7 @@ export default function WhatWeDoPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Supply Solutions for Every Channel
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl">
+          <p className="text-white/80 text-lg max-w-2xl">
             From hotel kitchens to supermarket shelves and bulk distribution hubs — we have a tailored supply approach for each segment.
           </p>
         </div>
@@ -80,27 +92,36 @@ export default function WhatWeDoPage() {
         </div>
       </section>
 
-      {/* Segment blocks */}
+      {/* Segment blocks — alternating image/text */}
       <section className="py-20 bg-neutral-base">
-        <div className="section-container space-y-16">
-          {segments.map(({ icon: Icon, id, title, subtitle, description, highlights }, index) => (
+        <div className="section-container space-y-24">
+          {segments.map(({ icon: Icon, id, title, subtitle, image, description, highlights }, index) => (
             <div
               key={id}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 !== 0 ? 'lg:flex lg:flex-row-reverse' : ''}`}
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 !== 0 ? 'lg:[direction:rtl]' : ''}`}
             >
-              {/* Visual side */}
-              <div className="relative">
-                <div className="bg-brand-green rounded-3xl p-12 flex flex-col items-center justify-center min-h-64 text-center">
-                  <div className="w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                    <Icon size={40} className="text-brand-gold" />
+              {/* Image side */}
+              <div className={index % 2 !== 0 ? 'lg:[direction:ltr]' : ''}>
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
+                  <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-700"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-green-dark/40 to-transparent" />
+                  <div className="absolute bottom-5 left-5 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-brand-gold flex items-center justify-center">
+                      <Icon size={20} className="text-brand-green-dark" />
+                    </div>
+                    <span className="text-white font-bold text-lg">{title}</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white mb-1">{title}</h2>
-                  <p className="text-brand-gold text-sm font-medium">{subtitle}</p>
                 </div>
               </div>
 
               {/* Content side */}
-              <div>
+              <div className={index % 2 !== 0 ? 'lg:[direction:ltr]' : ''}>
                 <SectionHeading
                   eyebrow={title}
                   title={subtitle}

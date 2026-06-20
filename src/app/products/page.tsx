@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Snowflake } from 'lucide-react'
 import SectionHeading from '@/components/SectionHeading'
@@ -12,10 +13,18 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      {/* Page header */}
-      <section className="pt-32 pb-16 bg-brand-green relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-1/4 -right-1/4 w-[50vw] h-[50vw] rounded-full border border-white/5" />
+      {/* Page header — with background image */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-72">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/slide-2-chicken.jpg"
+            alt="Premium frozen food products"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-brand-green/80" />
         </div>
         <div className="section-container relative z-10">
           <p className="text-brand-gold text-sm font-semibold uppercase tracking-widest mb-3">
@@ -24,7 +33,7 @@ export default function ProductsPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Brands &amp; Products
           </h1>
-          <p className="text-white/70 text-lg max-w-2xl">
+          <p className="text-white/80 text-lg max-w-2xl">
             Our growing product range — from frozen proteins and potato products to an expanding portfolio of food essentials.
           </p>
         </div>
@@ -44,26 +53,34 @@ export default function ProductsPage() {
             subtitle="Fast Track Food Stuff LLC currently focuses on premium frozen products, with our range expanding as we grow our presence in the Omani market."
           />
 
-          {/* Frozen products card */}
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-brand-green rounded-3xl p-10 text-white flex flex-col">
-              <div className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center mb-6">
-                <Snowflake size={28} className="text-brand-gold" />
+            {/* Frozen products card with image */}
+            <div className="relative rounded-3xl overflow-hidden min-h-72 group">
+              <Image
+                src="/images/hero/slide-3-fries.jpg"
+                alt="Frozen food products"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-green-dark/90 via-brand-green-dark/60 to-transparent" />
+              <div className="absolute inset-0 p-10 flex flex-col justify-end">
+                <div className="w-14 h-14 rounded-2xl bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center mb-6">
+                  <Snowflake size={28} className="text-brand-gold" />
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-3">Frozen Products</h2>
+                <p className="text-white/75 leading-relaxed mb-6">
+                  Our flagship category — premium frozen proteins, potato products, and more. Sourced with Brazilian quality standards and flash-frozen for maximum freshness.
+                </p>
+                <Link
+                  href="/frozen-products"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-green-dark font-bold rounded-xl hover:bg-brand-gold-light transition-colors w-fit"
+                >
+                  View Products <ArrowRight size={16} />
+                </Link>
               </div>
-              <h2 className="text-2xl font-bold mb-3">Frozen Products</h2>
-              <p className="text-white/70 leading-relaxed flex-1">
-                Our flagship category — premium frozen proteins, potato products, and more. Sourced with Brazilian quality standards and flash-frozen for maximum freshness.
-              </p>
-              <Link
-                href="/frozen-products"
-                className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-green-dark font-bold rounded-xl hover:bg-brand-gold-light transition-colors w-fit"
-              >
-                View Products <ArrowRight size={16} />
-              </Link>
             </div>
 
-            {/* Placeholder for future brand carousel */}
-            {/* TODO: Brand-partner logo carousel component can be dropped in here in Phase 2 */}
             <div className="bg-white rounded-3xl p-10 border border-neutral-200/60 flex flex-col items-center justify-center text-center min-h-64">
               <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center mb-4">
                 <span className="text-brand-gold text-2xl font-bold">+</span>

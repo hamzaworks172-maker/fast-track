@@ -10,6 +10,8 @@ import StatsBand from '@/components/StatsBand'
 import AnimatedSection from '@/components/AnimatedSection'
 import FeaturedCarousel from '@/components/FeaturedCarousel'
 import ProductTileGrid from '@/components/ProductTileGrid'
+import BrandsCarousel from '@/components/BrandsCarousel'
+import { brands } from '@/data/brands'
 import type { Product } from '@/types'
 
 export const revalidate = 60
@@ -64,7 +66,7 @@ export default async function HomePage() {
               <div className="relative">
                 <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
                   <Image
-                    src="/images/about/warehouse.jpg"
+                    src="/images/about/who-we-are.jpg"
                     alt="Fast Track cold storage warehouse operations"
                     fill
                     className="object-cover"
@@ -193,6 +195,9 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Our Brands — auto-scrolling partner carousel */}
+      <BrandsCarousel brands={brands} />
 
       {/* Contact CTA — with subtle background image */}
       <section className="relative py-20 overflow-hidden">

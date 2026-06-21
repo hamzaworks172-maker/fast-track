@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import type { Product } from '@/types'
 
@@ -12,7 +15,10 @@ export default function ProductCard({ product, href }: ProductCardProps) {
   const cardHref = href ?? `/frozen-products/${product.slug}`
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+    <motion.div
+      whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col h-full"
+    >
       {/* Image */}
       <div className="relative aspect-[4/3] bg-brand-green/10 overflow-hidden">
         {product.image_url ? (
@@ -53,6 +59,6 @@ export default function ProductCard({ product, href }: ProductCardProps) {
           <ArrowRight size={15} className="transition-transform group-hover/link:translate-x-0.5" />
         </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }

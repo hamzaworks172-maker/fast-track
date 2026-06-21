@@ -14,7 +14,7 @@ interface SegmentCardProps {
 export default function SegmentCard({ icon: Icon, title, description, href, imageSrc }: SegmentCardProps) {
   if (imageSrc) {
     return (
-      <div className="relative rounded-2xl overflow-hidden shadow-sm group min-h-72">
+      <div className="relative rounded-2xl overflow-hidden shadow-sm group min-h-72 transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
         <Image
           src={imageSrc}
           alt={title}
@@ -43,7 +43,7 @@ export default function SegmentCard({ icon: Icon, title, description, href, imag
   }
 
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow group border border-neutral-200/60">
+    <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 group border border-neutral-200/60">
       <div className="w-12 h-12 rounded-xl bg-brand-green/10 flex items-center justify-center mb-5">
         <Icon size={24} className="text-brand-green" />
       </div>
